@@ -1,6 +1,6 @@
 Git-ftp -- uploads to FTP servers the Git way
 =============================================
-경고 : cp949를 사용하면 윈도우를 위한 수정을 했습니다. 이 저장소에서 설치하면 설치 환경에 따라 동작하지 않을수 있습니다.
+경고 : cp949를 사용하는 윈도우를 위한 수정을 했습니다. 이 저장소에서 설치하면 설치 환경에 따라 동작하지 않을수 있습니다.
 WARNING : I have modified it for Windows using cp949. If you install from this git code, it may not work with your installation environment.
 
 If you use Git and you need to upload your files to an FTP server,
