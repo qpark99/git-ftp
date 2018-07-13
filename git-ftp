@@ -427,8 +427,13 @@ fire_upload_buffer() {
 	print_info "Uploading ..."
 	set_default_curl_options
 	CURL_ARGS+=(--ftp-create-dirs)
-	CURL_ARGS+=(-K "$TMP_CURL_UPLOAD_FILE")
+	# CURL_ARGS+=(-K "$TMP_CURL_UPLOAD_FILE")
+	CURL_ARGS+=(-K upload_list_7465)
+	# convert cp949 upload list file
+	iconv -f UTF-8 -t CP949 $TMP_CURL_UPLOAD_FILE > upload_list_7465
 	curl "${CURL_ARGS[@]}"
+	# delete iconv file
+	rm upload_list_7465
 	check_exit_status "Could not upload files." "$ERROR_UPLOAD"
 }
 
@@ -458,7 +463,10 @@ fire_delete_buffer() {
 	print_info "Deleting ..."
 	echo "url = $REMOTE_BASE_URL" >> "$TMP_CURL_DELETE_FILE"
 	set_default_curl_options
-	CURL_ARGS+=(-K "$TMP_CURL_DELETE_FILE")
+	# CURL_ARGS+=(-K "$TMP_CURL_DELETE_FILE")
+	# convert cp949 for windows
+	CURL_ARGS+=(-K delete_list_7465)
+	iconv -f UTF-8 -t CP949 $TMP_CURL_DELETE_FILE > delete_list_7465
 	if [ "${REMOTE_CMD_OPTIONS[0]}" = "-v" ]; then
 		curl "${CURL_ARGS[@]}"
 	else
@@ -467,6 +475,7 @@ fire_delete_buffer() {
 	if [ $? -ne 0 ]; then
 		write_log "WARNING: Some files and/or directories could not be deleted."
 	fi
+	rm delete_list_7465
 }
 
 get_file_content() {
